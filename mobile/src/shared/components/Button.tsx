@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Pressable,
-  StyleSheet,
-  Text,
-  type PressableProps,
-} from 'react-native';
+import {Pressable, StyleSheet, type PressableProps} from 'react-native';
 
 import {colors} from '../constants/colors';
+import {Loader} from './Loader';
+import {Typography} from './Typography';
 
 type ButtonProps = PressableProps & {
   title: string;
@@ -28,9 +24,9 @@ export function Button({title, loading = false, disabled, ...props}: ButtonProps
         isDisabled ? styles.disabled : null,
       ]}>
       {loading ? (
-        <ActivityIndicator color={colors.white} />
+        <Loader color={colors.white} />
       ) : (
-        <Text style={styles.title}>{title}</Text>
+        <Typography variant="button">{title}</Typography>
       )}
     </Pressable>
   );
@@ -59,10 +55,5 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: colors.primaryMuted,
-  },
-  title: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: '700',
   },
 });

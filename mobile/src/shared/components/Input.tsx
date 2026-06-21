@@ -1,13 +1,8 @@
 import React, {type ReactNode} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  type TextInputProps,
-  View,
-} from 'react-native';
+import {StyleSheet, TextInput, type TextInputProps, View} from 'react-native';
 
 import {colors} from '../constants/colors';
+import {Typography} from './Typography';
 
 type InputProps = TextInputProps & {
   label?: string;
@@ -26,7 +21,7 @@ export function Input({
 }: InputProps) {
   return (
     <View style={styles.container}>
-      {label ? <Text style={styles.label}>{label}</Text> : null}
+      {label ? <Typography variant="label">{label}</Typography> : null}
       <View style={[styles.inputWrapper, error ? styles.inputError : null]}>
         {leftElement ? (
           <View style={styles.leftElement}>{leftElement}</View>
@@ -40,7 +35,7 @@ export function Input({
           <View style={styles.rightElement}>{rightElement}</View>
         ) : null}
       </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Typography variant="error">{error}</Typography> : null}
     </View>
   );
 }
@@ -48,11 +43,6 @@ export function Input({
 const styles = StyleSheet.create({
   container: {
     gap: 6,
-  },
-  label: {
-    color: colors.text,
-    fontSize: 14,
-    fontWeight: '700',
   },
   inputWrapper: {
     minHeight: 58,
@@ -78,10 +68,5 @@ const styles = StyleSheet.create({
   },
   rightElement: {
     marginLeft: 12,
-  },
-  error: {
-    color: colors.error,
-    fontSize: 12,
-    fontWeight: '600',
   },
 });
