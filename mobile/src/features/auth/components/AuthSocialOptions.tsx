@@ -1,33 +1,36 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
+import {Icon} from '../../../shared/components/Icon';
 import {colors} from '../../../shared/constants/colors';
+import {icons} from '../../../shared/constants/icons';
 import {authText} from '../../../shared/constants/text';
 
 export function AuthSocialOptions() {
   return (
     <View style={styles.container}>
-      <SocialButton icon="G" label={authText.social.google} />
-      <SocialButton icon="A" label={authText.social.apple} />
+      <SocialButton iconName={icons.social.google} label={authText.social.google} />
+      <SocialButton iconName={icons.social.apple} label={authText.social.apple} />
     </View>
   );
 }
 
 type SocialButtonProps = {
-  icon: string;
+  iconName: 'apple' | 'google';
   label: string;
 };
 
-function SocialButton({icon, label}: SocialButtonProps) {
+function SocialButton({iconName, label}: SocialButtonProps) {
   return (
     <Pressable accessibilityRole="button" style={styles.button}>
-      <Text
-        style={[
-          styles.icon,
-          label === authText.social.google && styles.googleIcon,
-        ]}>
-        {icon}
-      </Text>
+      <Icon
+        name={iconName}
+        iconStyle="brand"
+        color={
+          label === authText.social.google ? colors.primary : colors.textStrong
+        }
+        size={22}
+      />
       <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
@@ -57,14 +60,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 14,
     elevation: 3,
-  },
-  icon: {
-    color: colors.textStrong,
-    fontSize: 18,
-    fontWeight: '900',
-  },
-  googleIcon: {
-    color: colors.primary,
   },
   label: {
     color: colors.textStrong,

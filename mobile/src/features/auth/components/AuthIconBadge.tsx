@@ -1,17 +1,21 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
+import {Icon} from '../../../shared/components/Icon';
 import {colors} from '../../../shared/constants/colors';
+import {icons} from '../../../shared/constants/icons';
 
 export function AuthIconBadge() {
   return (
     <View style={styles.glowOuter}>
       <View style={styles.glowInner}>
         <View style={styles.badge}>
-          <View style={styles.lockShackle} />
-          <View style={styles.lockBody}>
-            <View style={styles.lockDot} />
-          </View>
+          <Icon
+            name={icons.auth.lockBadge}
+            color={colors.white}
+            size={30}
+            iconStyle="solid"
+          />
         </View>
       </View>
     </View>
@@ -50,30 +54,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.24,
     shadowRadius: 24,
     elevation: 10,
-  },
-  lockShackle: {
-    width: 24,
-    height: 22,
-    marginBottom: -4,
-    borderWidth: 4,
-    borderBottomWidth: 0,
-    borderColor: colors.white,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  lockBody: {
-    width: 34,
-    height: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: colors.white,
-    borderRadius: 7,
-  },
-  lockDot: {
-    width: 5,
-    height: 9,
-    borderRadius: 4,
-    backgroundColor: colors.white,
   },
 });

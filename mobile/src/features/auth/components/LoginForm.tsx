@@ -4,8 +4,10 @@ import {Controller, useForm} from 'react-hook-form';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
 import {Button} from '../../../shared/components/Button';
+import {Icon} from '../../../shared/components/Icon';
 import {Input} from '../../../shared/components/Input';
 import {colors} from '../../../shared/constants/colors';
+import {icons} from '../../../shared/constants/icons';
 import {authText} from '../../../shared/constants/text';
 import {
   type LoginFormValues,
@@ -45,7 +47,14 @@ export function LoginForm({onForgotPasswordPress}: LoginFormProps) {
             onBlur={onBlur}
             onChangeText={onChange}
             error={errors.email?.message}
-            leftElement={<Text style={styles.inputIcon}>@</Text>}
+            leftElement={
+              <Icon
+                name={icons.auth.email}
+                color={colors.primary}
+                size={22}
+                iconStyle="regular"
+              />
+            }
             autoCapitalize="none"
             autoComplete="email"
             keyboardType="email-address"
@@ -64,16 +73,28 @@ export function LoginForm({onForgotPasswordPress}: LoginFormProps) {
             onBlur={onBlur}
             onChangeText={onChange}
             error={errors.password?.message}
-            leftElement={<Text style={styles.inputIcon}>*</Text>}
+            leftElement={
+              <Icon
+                name={icons.auth.password}
+                color={colors.primary}
+                size={21}
+                iconStyle="solid"
+              />
+            }
             rightElement={
               <Pressable
                 accessibilityRole="button"
                 onPress={() => setIsPasswordVisible(current => !current)}>
-                <Text style={styles.passwordToggle}>
-                  {isPasswordVisible
-                    ? authText.login.hidePassword
-                    : authText.login.showPassword}
-                </Text>
+                <Icon
+                  name={
+                    isPasswordVisible
+                      ? icons.auth.passwordVisible
+                      : icons.auth.passwordHidden
+                  }
+                  color={colors.textMuted}
+                  size={20}
+                  iconStyle="regular"
+                />
               </Pressable>
             }
             autoCapitalize="none"
@@ -111,17 +132,5 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 15,
     fontWeight: '600',
-  },
-  inputIcon: {
-    width: 18,
-    color: colors.primary,
-    fontSize: 18,
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-  passwordToggle: {
-    color: colors.textMuted,
-    fontSize: 13,
-    fontWeight: '700',
   },
 });

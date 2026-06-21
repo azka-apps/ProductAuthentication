@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {type ReactNode} from 'react';
 import {
-  type ReactNode,
   StyleSheet,
   Text,
   TextInput,
