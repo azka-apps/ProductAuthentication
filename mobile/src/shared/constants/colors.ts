@@ -5,6 +5,7 @@ export const colors = {
   primary: '#6256ff',
   primaryMuted: '#aaa5ff',
   primarySoft: 'rgba(98, 86, 255, 0.08)',
+  primaryRule: '#8b87ff',
   primaryGlowSoft: 'rgba(100, 88, 255, 0.06)',
   primaryGlow: 'rgba(100, 88, 255, 0.09)',
   text: '#101322',

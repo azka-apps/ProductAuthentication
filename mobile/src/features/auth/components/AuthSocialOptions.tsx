@@ -6,11 +6,19 @@ import {colors} from '../../../shared/constants/colors';
 import {icons} from '../../../shared/constants/icons';
 import {authText} from '../../../shared/constants/text';
 
-export function AuthSocialOptions() {
+type AuthSocialOptionsProps = {
+  googleLabel?: string;
+  appleLabel?: string;
+};
+
+export function AuthSocialOptions({
+  googleLabel = authText.social.google,
+  appleLabel = authText.social.apple,
+}: AuthSocialOptionsProps) {
   return (
     <View style={styles.container}>
-      <SocialButton iconName={icons.social.google} label={authText.social.google} />
-      <SocialButton iconName={icons.social.apple} label={authText.social.apple} />
+      <SocialButton iconName={icons.social.google} label={googleLabel} />
+      <SocialButton iconName={icons.social.apple} label={appleLabel} />
     </View>
   );
 }
@@ -27,7 +35,7 @@ function SocialButton({iconName, label}: SocialButtonProps) {
         name={iconName}
         iconStyle="brand"
         color={
-          label === authText.social.google ? colors.primary : colors.textStrong
+          iconName === icons.social.google ? colors.primary : colors.textStrong
         }
         size={22}
       />
@@ -39,7 +47,7 @@ function SocialButton({iconName, label}: SocialButtonProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 14,
+    gap: 10,
   },
   button: {
     flex: 1,
@@ -62,8 +70,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   label: {
+    flexShrink: 1,
     color: colors.textStrong,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
+    textAlign: 'center',
   },
 });

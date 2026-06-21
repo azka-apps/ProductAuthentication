@@ -5,13 +5,17 @@ import {Icon} from '../../../shared/components/Icon';
 import {colors} from '../../../shared/constants/colors';
 import {icons} from '../../../shared/constants/icons';
 
-export function AuthIconBadge() {
+type AuthIconBadgeProps = {
+  name?: typeof icons.auth.lockBadge | typeof icons.auth.registerBadge;
+};
+
+export function AuthIconBadge({name = icons.auth.lockBadge}: AuthIconBadgeProps) {
   return (
     <View style={styles.glowOuter}>
       <View style={styles.glowInner}>
         <View style={styles.badge}>
           <Icon
-            name={icons.auth.lockBadge}
+            name={name}
             color={colors.white}
             size={30}
             iconStyle="solid"

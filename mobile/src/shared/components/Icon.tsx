@@ -6,3 +6,5 @@ type IconProps = ComponentProps<typeof FontAwesome6>;
 export function Icon({size = 20, ...props}: IconProps) {
   return <FontAwesome6 {...props} size={size} />;
 }
+
+export type IconName = IconProps['name'];
