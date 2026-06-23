@@ -25,6 +25,21 @@ export const authText = {
     footerLabel: 'Already have an account?',
     footerAction: 'Login',
   },
+  forgotPassword: {
+    title: 'Forgot Password?',
+    subtitle:
+      "No worries! Enter your email address and we'll send you a link to reset your password.",
+    emailLabel: 'Email Address',
+    emailPlaceholder: 'Enter your email address',
+    infoTitle: 'How it works',
+    infoDescription:
+      "We'll send a password reset link to your email. Click the link and create a new password.",
+    submit: 'Send Reset Link',
+    divider: 'or',
+    supportAction: 'Need help? Contact Support',
+    footerLabel: 'Remember your password?',
+    footerAction: 'Login',
+  },
   social: {
     google: 'Google',
     apple: 'Apple',
@@ -41,6 +56,7 @@ export const authText = {
   validation: {
     fullNameRequired: 'Full name is required',
     fullNameMinLength: 'Full name must be at least 2 characters',
+    emailRequired: 'Email address is required',
     emailInvalid: 'Enter a valid email address',
     passwordRequired: 'Password is required',
     passwordMinLength: 'Password must be at least 8 characters',
