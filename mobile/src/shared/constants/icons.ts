@@ -17,4 +17,11 @@ export const icons = {
     google: 'google',
     apple: 'apple',
   },
+  app: {
+    chevronRight: 'chevron-right',
+    home: 'house',
+    profile: 'user',
+    shield: 'shield-halved',
+    signOut: 'right-from-bracket',
+  },
 } as const;
