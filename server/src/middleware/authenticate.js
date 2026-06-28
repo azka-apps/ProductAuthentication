@@ -10,7 +10,7 @@ export async function authenticate(req, _res, next) {
       throw new ApiError(401, 'Authentication required');
     }
 
-    const token = authHeader.slice('Bearer '.length);
+    const token = authHeader.slice(7);
     const payload = verifyAccessToken(token);
     const user = await User.findById(payload.userId);
 
@@ -19,11 +19,6 @@ export async function authenticate(req, _res, next) {
     }
 
     req.user = user;
-    req.auth = {
-      token,
-      payload,
-    };
-
     next();
   } catch (error) {
     if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {

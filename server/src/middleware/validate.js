@@ -19,17 +19,11 @@ export function validate(schema) {
       return next(new ApiError(400, message));
     }
 
-    if (value.body) {
-      req.body = value.body;
-    }
-
-    if (value.query) {
-      req.query = value.query;
-    }
-
-    if (value.params) {
-      req.params = value.params;
-    }
+    Object.assign(req, {
+      body: value.body ?? req.body,
+      query: value.query ?? req.query,
+      params: value.params ?? req.params,
+    });
 
     return next();
   };

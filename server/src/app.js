@@ -9,14 +9,6 @@ export function createApp() {
 
   app.use(cors());
   app.use(express.json());
-
-  app.get('/', (_req, res) => {
-    res.json({
-      project: 'ProductAuthentication',
-      message: 'Hello World',
-    });
-  });
-
   app.use('/api', routes);
   app.use(errorHandler);
 

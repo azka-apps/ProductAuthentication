@@ -1,6 +1,15 @@
 import { ApiError } from '../../utils/ApiError.js';
-import { getInitials } from '../../utils/getInitials.js';
 import { User } from './user.model.js';
+
+function getInitials(name) {
+  return name
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0].toUpperCase())
+    .join('');
+}
 
 export function formatUserProfile(user) {
   return {

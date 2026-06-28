@@ -3,18 +3,22 @@ import jwt from 'jsonwebtoken';
 import { config } from '../config/index.js';
 import { ApiError } from './ApiError.js';
 
-export function signAccessToken(user) {
+function assertJwtSecret() {
   if (!config.jwt.secret) {
     throw new ApiError(500, 'JWT secret is not configured');
   }
 
+  return config.jwt.secret;
+}
+
+export function signAccessToken(user) {
   return jwt.sign(
     {
       userId: user._id.toString(),
       email: user.email,
       role: user.role,
     },
-    config.jwt.secret,
+    assertJwtSecret(),
     {
       expiresIn: config.jwt.expiresIn,
     },
@@ -22,9 +26,5 @@ export function signAccessToken(user) {
 }
 
 export function verifyAccessToken(token) {
-  if (!config.jwt.secret) {
-    throw new ApiError(500, 'JWT secret is not configured');
-  }
-
-  return jwt.verify(token, config.jwt.secret);
+  return jwt.verify(token, assertJwtSecret());
 }

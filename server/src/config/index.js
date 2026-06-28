@@ -7,21 +7,17 @@ function buildMongoUri() {
     return process.env.MONGODB_URI;
   }
 
-  const {
-    MONGODB_USER,
-    MONGODB_PASSWORD,
-    MONGODB_HOST = 'cluster0.auqwrgb.mongodb.net',
-    MONGODB_DB = 'product-authentication',
-  } = process.env;
+  const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DB } =
+    process.env;
 
-  if (!MONGODB_USER || !MONGODB_PASSWORD) {
+  if (!MONGODB_USER || !MONGODB_PASSWORD || !MONGODB_HOST || !MONGODB_DB) {
     return undefined;
   }
 
   const encodedUser = encodeURIComponent(MONGODB_USER);
   const encodedPassword = encodeURIComponent(MONGODB_PASSWORD);
 
-  return `mongodb+srv://${encodedUser}:${encodedPassword}@${MONGODB_HOST}/${MONGODB_DB}?appName=Cluster0`;
+  return `mongodb+srv://${encodedUser}:${encodedPassword}@${MONGODB_HOST}/${MONGODB_DB}?retryWrites=true&w=majority`;
 }
 
 export const config = {

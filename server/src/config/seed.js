@@ -22,9 +22,7 @@ export async function seedDemoUsers() {
     return;
   }
 
-  const userCount = await User.countDocuments();
-
-  if (userCount > 0) {
+  if ((await User.countDocuments()) > 0) {
     return;
   }
 

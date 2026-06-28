@@ -22,16 +22,8 @@ export const login = asyncHandler(async (req, res) => {
 });
 
 export const logout = asyncHandler(async (_req, res) => {
-  await authService.logout();
-
   ApiResponse.success(res, {
     message: 'Logout successful',
     data: null,
   });
 });
-
-export const authController = {
-  register,
-  login,
-  logout,
-};

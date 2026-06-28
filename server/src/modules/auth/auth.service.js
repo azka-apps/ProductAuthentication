@@ -4,13 +4,24 @@ import { signAccessToken } from '../../utils/jwt.js';
 import { User } from '../user/user.model.js';
 import { formatUserProfile } from '../user/user.service.js';
 
+function normalizeEmail(email) {
+  return email.trim().toLowerCase();
+}
+
 function resolveName({ fullName, name }) {
   return (fullName || name || '').trim();
 }
 
+function createAuthResult(user) {
+  return {
+    user: formatUserProfile(user),
+    token: signAccessToken(user),
+  };
+}
+
 export async function register(payload) {
   const name = resolveName(payload);
-  const email = payload.email.trim().toLowerCase();
+  const email = normalizeEmail(payload.email);
 
   const existingUser = await User.findOne({ email });
 
@@ -25,36 +36,16 @@ export async function register(payload) {
     role: ROLES.USER,
   });
 
-  const token = signAccessToken(user);
-
-  return {
-    user: formatUserProfile(user),
-    token,
-  };
+  return createAuthResult(user);
 }
 
 export async function login(payload) {
-  const email = payload.email.trim().toLowerCase();
+  const email = normalizeEmail(payload.email);
   const user = await User.findOne({ email }).select('+password');
 
-  if (!user) {
+  if (!user || !(await user.comparePassword(payload.password))) {
     throw new ApiError(401, 'Invalid email or password');
   }
 
-  const isPasswordValid = await user.comparePassword(payload.password);
-
-  if (!isPasswordValid) {
-    throw new ApiError(401, 'Invalid email or password');
-  }
-
-  const token = signAccessToken(user);
-
-  return {
-    user: formatUserProfile(user),
-    token,
-  };
-}
-
-export async function logout() {
-  return null;
+  return createAuthResult(user);
 }
