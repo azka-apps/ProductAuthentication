@@ -1,24 +1,31 @@
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { ApiResponse } from '../../utils/ApiResponse.js';
+import * as authService from './auth.service.js';
 
-export const register = asyncHandler(async (_req, res) => {
+export const register = asyncHandler(async (req, res) => {
+  const data = await authService.register(req.body);
+
   ApiResponse.success(res, {
-    message: 'Register route is ready for implementation',
+    message: 'Registration successful',
     statusCode: 201,
-    data: null,
+    data,
   });
 });
 
-export const login = asyncHandler(async (_req, res) => {
+export const login = asyncHandler(async (req, res) => {
+  const data = await authService.login(req.body);
+
   ApiResponse.success(res, {
-    message: 'Login route is ready for implementation',
-    data: null,
+    message: 'Login successful',
+    data,
   });
 });
 
 export const logout = asyncHandler(async (_req, res) => {
+  await authService.logout();
+
   ApiResponse.success(res, {
-    message: 'Logout route is ready for implementation',
+    message: 'Logout successful',
     data: null,
   });
 });

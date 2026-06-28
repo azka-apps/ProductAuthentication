@@ -1,10 +1,13 @@
 import { asyncHandler } from '../../utils/asyncHandler.js';
 import { ApiResponse } from '../../utils/ApiResponse.js';
+import * as userService from './user.service.js';
 
-export const getProfile = asyncHandler(async (_req, res) => {
+export const getProfile = asyncHandler(async (req, res) => {
+  const user = await userService.getProfileById(req.user._id);
+
   ApiResponse.success(res, {
-    message: 'Get profile route is ready for implementation',
-    data: null,
+    message: 'Profile fetched successfully',
+    data: { user },
   });
 });
 
