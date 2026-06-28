@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import {useAuthSession} from '../../../../app/providers/AuthSessionProvider';
 import {colors} from '../../../../shared/constants/colors';
 import {authText} from '../../../../shared/constants/text';
 import {AuthDivider} from '../../components/AuthDivider';
@@ -20,6 +21,8 @@ import type {LoginScreenProps} from '../../types/auth-navigation.types';
 import {styles} from './styles';
 
 export function LoginScreen({navigation}: LoginScreenProps) {
+  const {signIn} = useAuthSession();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
@@ -41,6 +44,7 @@ export function LoginScreen({navigation}: LoginScreenProps) {
               onForgotPasswordPress={() =>
                 navigation.navigate('ForgotPassword')
               }
+              onLogin={signIn}
             />
 
             <AuthDivider label={authText.login.divider} />

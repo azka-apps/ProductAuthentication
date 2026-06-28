@@ -16,13 +16,15 @@ import {
 
 type LoginFormProps = {
   onForgotPasswordPress: () => void;
+  onLogin: (values: LoginFormValues) => string | null;
 };
 
-export function LoginForm({onForgotPasswordPress}: LoginFormProps) {
+export function LoginForm({onForgotPasswordPress, onLogin}: LoginFormProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const {
     control,
     handleSubmit,
+    setError,
     formState: {errors, isSubmitting},
   } = useForm<LoginFormValues>({
     defaultValues: {
@@ -32,12 +34,19 @@ export function LoginForm({onForgotPasswordPress}: LoginFormProps) {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = handleSubmit(() => {
-    // API integration will be added later.
+  const onSubmit = handleSubmit(values => {
+    const errorMessage = onLogin(values);
+
+    if (errorMessage) {
+      setError('root', {message: errorMessage});
+    }
   });
 
   return (
     <View style={styles.container}>
+      {errors.root?.message ? (
+        <Text style={styles.formError}>{errors.root.message}</Text>
+      ) : null}
       <Controller
         control={control}
         name="email"
@@ -123,6 +132,12 @@ export function LoginForm({onForgotPasswordPress}: LoginFormProps) {
 const styles = StyleSheet.create({
   container: {
     gap: 20,
+  },
+  formError: {
+    color: colors.error,
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   forgotPassword: {
     alignSelf: 'flex-end',
